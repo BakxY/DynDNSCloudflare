@@ -1,0 +1,24 @@
+{
+  "name": "dyndnscloudflare",
+  "version": "1.0.0",
+  "description": "This is a small node.js application to use a cloudflare registered domain with a DynDNS. This is done by using the Cloudflare API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BakxY/DynDNSCloudflare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BakxY/DynDNSCloudflare/issues"
+  },
+  "homepage": "https://github.com/BakxY/DynDNSCloudflare#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.22",
+    "typescript": "^4.6.2"
+  }
+}
