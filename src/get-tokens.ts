@@ -1,33 +1,56 @@
 import fs from 'fs';
 
 // set file locations
-const cloudflare_api_token_file = './resources/tokens/cloudflare_api_token.txt'
+const cloudflare_api_read_token_file = './resources/tokens/cloudflare_api_read_token.txt'
+const cloudflare_api_write_token_file = './resources/tokens/cloudflare_api_write_token.txt'
 const cloudflare_zone_id_file = './resources/tokens/cloudflare_zone_id.txt'
 
 // export function import
-export function getCloudflareToken() 
+export function getCloudflareReadToken() 
 {
-    var cloudflare_api_token = ''
+    var cloudflare_api_read_token = ''
 
     // read token file
-    cloudflare_api_token = fs.readFileSync(cloudflare_api_token_file, 'utf-8')
+    cloudflare_api_read_token = fs.readFileSync(cloudflare_api_read_token_file, 'utf-8')
 
     // check if the token files is empty
-    if(cloudflare_api_token != '')
+    if(cloudflare_api_read_token != '')
     {
-        cloudflare_api_token = cloudflare_api_token.replace('\n', '')
+        cloudflare_api_read_token = cloudflare_api_read_token.replace('\n', '')
         // return token
-        return cloudflare_api_token
+        return cloudflare_api_read_token
     }
     else
     {
-        console.error('Cloudflare token file is empty!')
+        console.error('Cloudflare read token file is empty!')
         process.exit()
     }
 }
 
 // export function import
-export function getApexToken() 
+export function getCloudflareWriteToken() 
+{
+    var cloudflare_api_write_token = ''
+
+    // read token file
+    cloudflare_api_write_token = fs.readFileSync(cloudflare_api_write_token_file, 'utf-8')
+
+    // check if the token files is empty
+    if(cloudflare_api_write_token != '')
+    {
+        cloudflare_api_write_token = cloudflare_api_write_token.replace('\n', '')
+        // return token
+        return cloudflare_api_write_token
+    }
+    else
+    {
+        console.error('Cloudflare write token file is empty!')
+        process.exit()
+    }
+}
+
+// export function import
+export function getCloudflareZoneID() 
 {
     var cloudflare_zone_id = ''
 
