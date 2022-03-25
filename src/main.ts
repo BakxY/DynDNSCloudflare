@@ -1,60 +1,58 @@
 import { getPubIP } from './get-ip'
 import { getCloudflareReadToken, getCloudflareWriteToken, getCloudflareZoneID } from './get-tokens'
-import fetch from "node-fetch";
+import { getRecords, editRecord } from './cloudflare-api'
 
+// define variables for current and old IP's
 let currentIP = ''
 let oldPubIP = ''
-let APIResponse
-let APIJsonBody = ''
 
 // interval for checking ip in ms
 const interval = 10000
 
+// create a async main function
 async function main()
 {
+    // get the current public ip
     currentIP = await getPubIP()
 
+    // check if the public ip has changed or is currently undefined
     if(currentIP != oldPubIP && currentIP != undefined)
     {
+        // print a info to the console
         console.info('[ INFO ] Public IP has changed to ' + currentIP)
 
-        APIResponse = await fetch('https://api.cloudflare.com/client/v4/zones/' + getCloudflareZoneID() + '/dns_records', {
-            method: 'GET',
-            headers: [
-                ['Content-Type', 'application/json'],
-                ['Authorization', 'Bearer ' + getCloudflareReadToken()]
-            ],
-        })
-        APIResponse = await APIResponse.json()
-        for(let index in APIResponse['result'])
+        let JsonRecords = await getRecords(getCloudflareZoneID(), getCloudflareReadToken())
+
+        // loop throug all the records
+        for(let index in JsonRecords)
         {
-            if(APIResponse['result'][index]['content'] == oldPubIP)
+            // check if a record contains the old ip
+            if(JsonRecords[index]['content'] == oldPubIP)
             {
-                APIJsonBody = JSON.stringify({ 
-                    'type': APIResponse['result'][index]['type'], 
-                    'name': APIResponse['result'][index]['name'], 
+                // create a json body to send to the api
+                let APIJsonBody = JSON.stringify({ 
+                    'type': JsonRecords[index]['type'], 
+                    'name': JsonRecords[index]['name'], 
                     'content': currentIP.toString(), 
-                    'ttl': APIResponse['result'][index]['ttl'],
-                    'proxied' : APIResponse['result'][index]['proxied']
+                    'ttl': JsonRecords[index]['ttl'],
+                    'proxied' : JsonRecords[index]['proxied']
                 })
 
-                await fetch('https://api.cloudflare.com/client/v4/zones/' + getCloudflareZoneID() + '/dns_records/' + APIResponse['result'][index]['id'], {
-                    method: 'PUT',
-                    headers: [
-                        ['Content-Type', 'application/json'],
-                        ['Authorization', 'Bearer ' + getCloudflareWriteToken()]
-                    ],
-                    body: APIJsonBody
-                })
-                console.info('[ UPDATE ] Changed DNS record ' + APIResponse['result'][index]['name'])
+                await editRecord(getCloudflareZoneID(), getCloudflareWriteToken(), JsonRecords[index]['id'], APIJsonBody)
+
+                // print the name of the record and a message
+                console.info('[ UPDATE ] Changed DNS record ' + JsonRecords[index]['name'])
             }
         }
 
+        // set the old ip to the current
         oldPubIP = currentIP
     }
 }
 
+// print some info messages to the console
 console.info('[ INFO ] Starting DDNS')
 console.info('[ INFO ] IP is pulled every ' + interval + 'ms')
 
+// call the main function every interval
 setInterval(main, interval)
