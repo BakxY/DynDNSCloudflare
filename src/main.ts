@@ -23,7 +23,7 @@ async function main()
 
         let JsonRecords = await getRecords(getCloudflareZoneID(), getCloudflareReadToken())
 
-        // loop throug all the records
+        // loop through all the records
         for(let index in JsonRecords)
         {
             // check if a record contains the old ip
