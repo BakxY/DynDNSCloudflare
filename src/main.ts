@@ -1,19 +1,26 @@
 import { getPubIP } from './get-ip'
 import { getCloudflareReadToken, getCloudflareWriteToken, getCloudflareZoneID } from './get-tokens'
 import { getRecords, editRecord } from './cloudflare-api'
+import { getConf, getInterval, getIPOutput } from './read-conf'	
 
 // define variables for current and old IP's
 let currentIP = ''
 let oldPubIP = ''
 
-// interval for checking ip in ms
-const interval = 10000
+// get the config file
+let configString = getConf()
+
+// get the interval config
+const interval = getInterval(configString)
+
+// get the ip every interval config
+const OutIPInterval = getIPOutput(configString)
 
 // create a async main function
 async function main()
 {
     // get the current public ip
-    currentIP = await getPubIP()
+    currentIP = await getPubIP(OutIPInterval)
 
     // check if the public ip has changed or is currently undefined
     if(currentIP != oldPubIP && currentIP != undefined)
