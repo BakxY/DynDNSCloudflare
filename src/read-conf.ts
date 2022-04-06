@@ -56,6 +56,12 @@ export function getRecordList()
             return line.indexOf('#') != 0;
         });
         
+        // replace all the \r with nothing
+        for(let index in recordListNoCommentsArray)
+        {
+            recordListNoCommentsArray[index] = recordListNoCommentsArray[index].replace(/\r/g, '')
+        }
+
         // return the string
         return recordListNoCommentsArray
     }
@@ -89,7 +95,7 @@ export function getInterval(confString)
     else
     {
         // clean up string
-        let confInterval = confIntervalArray[0].replace(/ /g, '').replace(/\t/g, '').replace('interval', '') * 1
+        let confInterval = confIntervalArray[0].replace(/ /g, '').replace(/\t/g, '').replace('interval', '').replace('\r', '') * 1
 
         // check if the interval is a number
         if(Number.isFinite(confInterval) != false)
@@ -128,7 +134,7 @@ export function getIPOutput(confString)
     else
     {
         // clean up string
-        let confIPOutput = confIPOutputArray[0].replace(/ /g, '').replace(/\t/g, '').replace('ip_output', '')
+        let confIPOutput = confIPOutputArray[0].replace(/ /g, '').replace(/\t/g, '').replace('ip_output', '').replace('\r', '')
 
         // return the ip_output
         return confIPOutput
@@ -157,7 +163,7 @@ export function getUseRecordList(confString)
     else
     {
         // clean up string
-        let confUseRecordList = confUseRecordListArray[0].replace(/ /g, '').replace(/\t/g, '').replace('use_record_list', '')
+        let confUseRecordList = confUseRecordListArray[0].replace(/ /g, '').replace(/\t/g, '').replace('use_record_list', '').replace('\r', '')
 
         // return the use_record_list
         return confUseRecordList

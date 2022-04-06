@@ -14,7 +14,7 @@ const configString = getConf()
 const interval = getInterval(configString)
 
 // get the ip every interval config
-const OutIPInterval = getIPOutput(configString)
+const OutIPOnInterval = getIPOutput(configString)
 
 // get the use_record_list config
 const UseRecordList = getUseRecordList(configString)
@@ -23,7 +23,7 @@ const UseRecordList = getUseRecordList(configString)
 async function main()
 {
     // get the current public ip
-    currentIP = await getPubIP(OutIPInterval)
+    currentIP = await getPubIP(OutIPOnInterval)
 
     // check if the public ip has changed or is currently undefined
     if(currentIP != oldPubIP && currentIP != undefined)
@@ -38,21 +38,34 @@ async function main()
             // get the record list
             const recordList = getRecordList()
 
+            // create a new variable for the json body
+            let APIJsonBody = ''
+
             // loop through the record list
             for(let index in JsonRecords)
             {
+                // check if the record is an A record
                 if(JsonRecords[index]['type'] == 'A')
                 {
-                    console.log('- ' + JsonRecords[index]['name'])
-
+                    // loop through the record list
                     for(let recordName in recordList)
                     {
+                        // check if the record name is the same as the record name in the record list
                         if(JsonRecords[index]['name'] == recordList[recordName])
                         {
-                            console.log(' + ' + recordList[recordName])
+                            // create a new json body
+                            APIJsonBody = JSON.stringify({
+                                "type": JsonRecords[index]['type'],
+                                "name": JsonRecords[index]['name'],
+                                "content": currentIP.toString(),
+                                "ttl": JsonRecords[index]['ttl'],
+                                "proxied": JsonRecords[index]['proxied']
+                            })
+
+                            // edit the record
+                            await editRecord(getCloudflareZoneID(), getCloudflareWriteToken(), JsonRecords[index]['id'], APIJsonBody)
                         }
                     }
-                    console.log('\n')
                 }
             }
         }
@@ -80,7 +93,7 @@ async function main()
                 }
             }
         }
-
+        
         // set the old ip to the current
         oldPubIP = currentIP
     }
