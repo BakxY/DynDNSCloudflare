@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 // export the getPubIP function (is async)
-export async function getPubIP(OutIPInterval)
+export async function getPubIP(OutIPInterval:boolean)
 {
     try
     {
@@ -12,7 +12,7 @@ export async function getPubIP(OutIPInterval)
         response = await response.json()
 
         // check if ip should be outputted every interval
-        if(OutIPInterval.replace('\r', '') == 'true')
+        if(OutIPInterval == true)
         {
             // print the ip to the console
             console.info('[  IP  ] Current public IP is ' + response['ip'])
