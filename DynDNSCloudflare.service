@@ -2,7 +2,7 @@
 Description=Custom DDNS Client for use with cloudflare
 
 [Service]
-WorkingDirectory=/usr/local/DynDNSCloudflare
+WorkingDirectory=/usr/local/DynDNSCloudflare/src
 ExecStart=ts-node index.ts
 
 Restart=always
@@ -10,7 +10,7 @@ RestartSec=10
 
 StandardOutput=syslog
 StandardError=syslog
-SyslogIndentifier=ddns-cloudflare
+SyslogIdentifier=​ddns-cloudflare
 
 [Install]
 WantedBy=multi-user.target
