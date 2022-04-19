@@ -2,7 +2,7 @@
   "name": "dyndnscloudflare",
   "version": "1.0.0",
   "description": "This is a small node.js application to use a cloudflare registered domain with a DynDNS. This is done by using the Cloudflare API",
-  "main": "src/main.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,6 +1,6 @@
-import { getPubIP } from './get-ip'
-import { editRecordsZoneList } from './cloudflare-api'
-import { getConf, getZones, getInterval, getIPOutput, getUseRecordList } from './read-conf'	
+import { getPubIP } from './resources/lib/get-ip'
+import { editRecordsZoneList } from './resources/lib/cloudflare-api'
+import { getConf, getZones, getInterval, getIPOutput, getUseRecordList } from './resources/lib/read-conf'	
 
 // define variables for current and old IP's
 let currentIP = ''
