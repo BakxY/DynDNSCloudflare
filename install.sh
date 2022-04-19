@@ -51,15 +51,15 @@ npm install -g typescript &> /dev/null
 npm install -g ts-node &> /dev/null
 
 echo "Removing old DynDNSCloudflare folder"
-rm -rf /tmp/main.zip &> /dev/null
+rm -rf /tmp/V1-release.zip &> /dev/null
 rm -rf /usr/local/DynDNSCloudflare &> /dev/null
 rm -rf /etc/DynDNSCloudflare &> /dev/null
 rm -f /etc/systemd/system/DynDNSCloudflare.service &> /dev/null
 
 echo "Getting source code and unzipping"
-wget https://github.com/BakxY/DynDNSCloudflare/archive/refs/heads/main.zip -P /tmp/ &> /dev/null
-unzip /tmp/main.zip -d /usr/local/ &> /dev/null
-mv /usr/local/DynDNSCloudflare-main /usr/local/DynDNSCloudflare
+wget https://github.com/BakxY/DynDNSCloudflare/archive/refs/tags/V1-release.zip -P /tmp/ &> /dev/null
+unzip /tmp/V1-release.zip -d /usr/local/ &> /dev/null
+mv /usr/local/DynDNSCloudflare-V1-release /usr/local/DynDNSCloudflare
 
 echo "Moving service file"
 mv /usr/local/DynDNSCloudflare/DynDNSCloudflare.service /etc/systemd/system/DynDNSCloudflare.service
