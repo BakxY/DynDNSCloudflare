@@ -9,7 +9,7 @@ Currently there is no documentation, but im going to add this soon.
 If you find any issues please create a issue in the repo or if it is dire, please send me a message on discord (BREXIT#2164). I will look into any issues as soon as possible.
 
 ## How to run
-If you want to run this ddns client yourself, just download the install.sh script to your linux machine and run it as root (or with sudo). This script will install all needed packages and install everything on your system. After running the script you can set everything to you liking in the /etc/DynDNSCloudflare folder. 
+If you want to run this ddns client yourself, just download the install.sh from [this](https://github.com/BakxY/DynDNSCloudflareInstall/tree/main) repo and run it as root (or sudo).
 
 ## Configs
 You can comment your config by using the `#` symbol, the entire line will be ignored if it startes with a `#`
