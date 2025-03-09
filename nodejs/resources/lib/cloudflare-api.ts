@@ -1,5 +1,5 @@
-import fetch from "node-fetch"
-import { getRecordList } from './read-conf'
+import fetch from 'node-fetch'
+import * as conf from './read-conf'
 
 export async function getRecords(zonesJSON: any)
 {
@@ -36,7 +36,7 @@ export async function editRecordsZoneList(zonesJSON: string[], useRecordList:boo
     let recordsToEdit
     if(useRecordList == true)
     {
-        recordsToEdit = getRecordList()
+        recordsToEdit = conf.getRecordList()
     }
 
     // loop through the zones

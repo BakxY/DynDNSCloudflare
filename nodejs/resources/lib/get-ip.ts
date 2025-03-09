@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 // export the getPubIP function (is async)
 export async function getPubIP(OutIPInterval:boolean)

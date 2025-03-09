@@ -1,28 +1,28 @@
-import { getPubIP } from './resources/lib/get-ip'
-import { editRecordsZoneList } from './resources/lib/cloudflare-api'
-import { getConf, getZones, getInterval, getIPOutput, getUseRecordList } from './resources/lib/read-conf'	
+import * as ip from './resources/lib/get-ip'
+import * as cloudflare from './resources/lib/cloudflare-api'
+import * as conf from './resources/lib/read-conf'	
 
 // define variables for current and old IP's
 let currentIP = ''
 let oldPubIP = ''
 
 // get the config file
-const configString = getConf()
+const configString = conf.getConf()
 
 // get the interval config
-const interval = getInterval(configString)
+const interval = conf.getInterval(configString)
 
 // get the ip every interval config
-const OutIPOnInterval = getIPOutput(configString)
+const OutIPOnInterval = conf.getIPOutput(configString)
 
 // get the use_record_list config
-const UseRecordList = getUseRecordList(configString)
+const UseRecordList = conf.getUseRecordList(configString)
 
 // create a async main function
 async function main()
 {
     // get the current public ip
-    currentIP = await getPubIP(OutIPOnInterval)
+    currentIP = await ip.getPubIP(OutIPOnInterval)
 
     // check if the public ip has changed or is currently undefined
     if(currentIP != oldPubIP && currentIP != undefined)
@@ -31,7 +31,7 @@ async function main()
         console.info('[ INFO ] Public IP has changed to ' + currentIP)
 
         // edit the records
-        editRecordsZoneList(getZones(), UseRecordList, currentIP)
+        cloudflare.editRecordsZoneList(conf.getZones(), UseRecordList, currentIP)
 
         // set the old ip to the current
         oldPubIP = currentIP
