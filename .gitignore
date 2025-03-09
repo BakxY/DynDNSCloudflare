@@ -1,3 +1,4 @@
-src/resources/tokens/cloudflare_zone_id.txt
-src/resources/tokens/cloudflare_api_read_token.txt
-src/resources/tokens/cloudflare_api_write_token.txt
+nodejs/src/resources/tokens/cloudflare_zone_id.txt
+nodejs/resources/tokens/cloudflare_api_read_token.txt
+nodejs/resources/tokens/cloudflare_api_write_token.txt
+nodejs/node_modules
