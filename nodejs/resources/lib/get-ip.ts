@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 export async function getPubIP(OutIPInterval: boolean) {
     try {
         // Get public ip address
-        let response = await fetch('https://ip-adresim.app')
+        let response: fetch.Response = await fetch('https://ip-adresim.app')
 
         const publicIpAddr: string = await response.text()
 
