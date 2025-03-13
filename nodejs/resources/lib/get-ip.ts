@@ -3,19 +3,21 @@ import fetch from 'node-fetch';
 // export the getPubIP function (is async)
 export async function getPubIP(OutIPInterval: boolean) {
     try {
-        // make a request to the ipify api
-        let response = await fetch('https://api.ipify.org?format=json')
+        // Get public ip address
+        let response = await fetch('https://ip-adresim.app')
 
-        // convert the response to json format
-        response = await response.json()
+        const publicIpAddr: string = await response.text()
 
         // check if ip should be outputted every interval
         if (OutIPInterval == true) {
             // print the ip to the console
-            console.info('[  IP  ] Current public IP is ' + response['ip'])
+            console.info('[  IP  ] Current public IP is ' + publicIpAddr)
         }
         //return the public ip
-        return response['ip']
+        return publicIpAddr
     }
-    catch { } // try and catch any error thrown by the fetch command
+    catch (err) {
+        console.error('[ ERROR ] An error occurred during public ip retrieval')
+        console.error(err)
+    }
 }

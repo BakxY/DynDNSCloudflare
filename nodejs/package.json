@@ -19,7 +19,6 @@
   "homepage": "https://github.com/BakxY/DynDNSCloudflare#readme",
   "devDependencies": {
     "@types/node": "^17.0.23",
-    "ts-node": "^10.7.0",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2"
   },
