@@ -40,5 +40,8 @@ async function main() {
 console.info('[ INFO ] Starting DDNS')
 console.info('[ INFO ] IP is pulled every ' + interval + 'ms')
 
+// Run function manually once at startup
+main()
+
 // call the main function every interval
 setInterval(main, interval)
