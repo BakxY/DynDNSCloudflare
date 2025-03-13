@@ -8,7 +8,7 @@ export async function getRecords(zonesJSON: string[]) {
     for (let index in zonesJSON) {
         try {
             // get all dns record from the cloudflare api
-            let APIResponse = await fetch('https://api.cloudflare.com/client/v4/zones/' + zonesJSON[index]['id'] + '/dns_records', {
+            let APIResponse: fetch.Response = await fetch('https://api.cloudflare.com/client/v4/zones/' + zonesJSON[index]['id'] + '/dns_records', {
                 method: 'GET',
                 headers: [
                     ['Content-Type', 'application/json'],
@@ -38,7 +38,7 @@ export async function editRecordsZoneList(zonesJSON: string[], useRecordList: bo
     // loop through the zones
     for (let ZoneIndex in zonesJSON) {
         // get all records for the zone
-        let ZoneRecordsJSON = await fetch('https://api.cloudflare.com/client/v4/zones/' + zonesJSON[ZoneIndex]['id'] + '/dns_records', {
+        let ZoneRecordsJSON: fetch.Response = await fetch('https://api.cloudflare.com/client/v4/zones/' + zonesJSON[ZoneIndex]['id'] + '/dns_records', {
             method: 'GET',
             headers: [
                 ['Content-Type', 'application/json'],

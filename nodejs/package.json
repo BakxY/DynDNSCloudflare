@@ -18,11 +18,15 @@
   },
   "homepage": "https://github.com/BakxY/DynDNSCloudflare#readme",
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^17.0.23",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.6",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.6.12",
     "node-fetch": "^2.6.7"
   }
 }
